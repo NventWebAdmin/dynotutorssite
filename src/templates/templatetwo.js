@@ -15,7 +15,7 @@ class F extends Component {
   render() {
     let { siteprops } = this.props;
     let {
-      sitelogourl,
+      // sitelogourl,
       siteheaderorgname,
       siteheadernavmenuitems,
       siteintroposition,
@@ -30,7 +30,7 @@ class F extends Component {
       sitesociallinks,
     } = siteprops;
     let { activePageName } = this.state;
-    if (activePageName == "") {
+    if (activePageName === "") {
       activePageName = "home";
     }
 
@@ -40,7 +40,7 @@ class F extends Component {
 
     let logoHtml = [];
     logoHtml.push(
-      <h1 className="sp" onClick={() => this.tabClick("home")}>
+      <h1 key="logo" className="sp" onClick={() => this.tabClick("home")}>
         {siteheaderorgname}
       </h1>
     );
@@ -49,14 +49,14 @@ class F extends Component {
     let navmenuHtml = [];
     for (let i in siteheadernavmenuitems) {
       navmenuItemHtml.push(
-        <div onClick={() => this.tabClick(i)}>
+        <div key={i} onClick={() => this.tabClick(i)}>
           <div className="dropdown">
             {siteheadernavmenuitems[i].label}{" "}
-            <i class="fa fa-angle-down sp"></i>
+            <i className="fa fa-angle-down sp"></i>
             <div className="dropdown-content">
               <div className="dropdown2 ">
                 <div className="org-fr org-fai-c org-fjc-sb org-bb">
-                  test <i class="fa fa-angle-right "></i>
+                  test <i className="fa fa-angle-right "></i>
                 </div>
                 <div className="dropdown2-contentright ">
                   <div className="org-bb">test</div>
@@ -67,7 +67,7 @@ class F extends Component {
 
               <div className="dropdown2 ">
                 <div className="org-fr org-fai-c org-fjc-sb org-bb">
-                  test <i class="fa fa-angle-right "></i>
+                  test <i className="fa fa-angle-right "></i>
                 </div>
                 <div className="dropdown2-contentright ">
                   <div className="org-bb">test</div>
@@ -82,14 +82,17 @@ class F extends Component {
     }
 
     navmenuHtml.push(
-      <div className="org-fr org-fjc-e org-fai-c org-cdivleft-lp org-cdivv-mp lf">
+      <div
+        key="navmenuitem"
+        className="org-fr org-fjc-e org-fai-c org-cdivleft-lp org-cdivv-mp lf"
+      >
         {navmenuItemHtml}
       </div>
     );
 
     let navmenuRowHtml = [];
     navmenuRowHtml.push(
-      <div className="org-fr org-fai-c ">
+      <div key="navmenurow" className="org-fr org-fai-c ">
         <div className="org-flexbasis-100p org-mflexbasis-20p org-lflexbasis-20p ">
           {logoHtml}
         </div>
@@ -103,7 +106,7 @@ class F extends Component {
 
     let siteintroBodyLeftHtml = [];
     siteintroBodyLeftHtml.push(
-      <div style={{ width: "100%" }}>
+      <div key="siteintrobodyleft" style={{ width: "100%" }}>
         <div style={{ fontSize: "50px" }}>{siteintroheading}</div>
         <br />
         <br />
@@ -150,8 +153,9 @@ class F extends Component {
     let siteintroHtml = [];
 
     siteintroHtml.push(
-      <div style={{ position: "relative", width: "100%" }}>
+      <div key="siteintro" style={{ position: "relative", width: "100%" }}>
         <img
+          alt="test"
           src={Logo}
           width="100%"
           height="600px"
@@ -168,7 +172,7 @@ class F extends Component {
         >
           {navmenuRowHtml}
         </div>
-        {siteintroposition == "center" ? (
+        {siteintroposition === "center" ? (
           <div
             style={{
               position: "absolute",
@@ -182,7 +186,7 @@ class F extends Component {
         ) : (
           ""
         )}
-        {siteintroposition == "left" ? (
+        {siteintroposition === "left" ? (
           <div
             style={{
               position: "absolute",
@@ -195,7 +199,7 @@ class F extends Component {
         ) : (
           ""
         )}
-        {siteintroposition == "right" ? (
+        {siteintroposition === "right" ? (
           <div
             style={{
               position: "absolute",
@@ -212,7 +216,7 @@ class F extends Component {
     );
 
     siteintroHtml = [];
-    siteintroHtml.push(<>{navmenuRowHtml}</>);
+    siteintroHtml.push(<div key="navmenutrow">{navmenuRowHtml}</div>);
 
     // siteintro end
     // sitebody start
@@ -223,9 +227,9 @@ class F extends Component {
       console.log(sitebodyarray[activePageName][i]);
 
       let sitebodyArrayItem = sitebodyarray[activePageName][i];
-      if (sitebodyArrayItem.type == "imgright") {
+      if (sitebodyArrayItem.type === "imgright") {
         sitebodyHtml.push(
-          <div className="org-fr lm">
+          <div key={i} className="org-fr lm">
             <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p mp">
               <div className="elf">{sitebodyArrayItem.heading}</div>
               <br />
@@ -233,6 +237,7 @@ class F extends Component {
             </div>
             <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p mp">
               <img
+                alt="test"
                 src={sitebodyArrayItem.imgurl}
                 width="100%"
                 height="300px"
@@ -242,11 +247,12 @@ class F extends Component {
           </div>
         );
       }
-      if (sitebodyArrayItem.type == "imgleft") {
+      if (sitebodyArrayItem.type === "imgleft") {
         sitebodyHtml.push(
-          <div className="org-fr lm">
+          <div key={i} className="org-fr lm">
             <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p mp">
               <img
+                alt="test"
                 src={sitebodyArrayItem.imgurl}
                 width="100%"
                 height="300px"
@@ -261,11 +267,12 @@ class F extends Component {
           </div>
         );
       }
-      if (sitebodyArrayItem.type == "imgcenter") {
+      if (sitebodyArrayItem.type === "imgcenter") {
         sitebodyHtml.push(
-          <div className="org-fr lm">
+          <div key={i} className="org-fr lm">
             <div className="org-flexbasis-100p org-mflexbasis-100p org-lflexbasis-100p mp">
               <img
+                alt="test"
                 src={sitebodyArrayItem.imgurl}
                 width="100%"
                 height="300px"
@@ -280,13 +287,17 @@ class F extends Component {
           </div>
         );
       }
-      if (sitebodyArrayItem.type == "threecolumn") {
+      if (sitebodyArrayItem.type === "threecolumn") {
         let columnhtml = [];
         for (let j in sitebodyArrayItem.body) {
           columnhtml.push(
-            <div className="org-flexbasis-100p org-mflexbasis-33p org-lflexbasis-33p mp mf">
+            <div
+              key={j}
+              className="org-flexbasis-100p org-mflexbasis-33p org-lflexbasis-33p mp mf"
+            >
               <div className="org-flexbasis-100p org-mflexbasis-100p org-lflexbasis-100p ">
                 <img
+                  alt="test"
                   src={Logo}
                   width="100%"
                   height="300px"
@@ -299,11 +310,18 @@ class F extends Component {
             </div>
           );
         }
-        sitebodyHtml.push(<div className="org-fr lm">{columnhtml}</div>);
-      }
-      if (sitebodyArrayItem.type == "getstartedbuttonpanel") {
         sitebodyHtml.push(
-          <div className="org-fr org-fjc-c org-fai-c  org-flexbasis-100p">
+          <div key={i} className="org-fr lm">
+            {columnhtml}
+          </div>
+        );
+      }
+      if (sitebodyArrayItem.type === "getstartedbuttonpanel") {
+        sitebodyHtml.push(
+          <div
+            key={i}
+            className="org-fr org-fjc-c org-fai-c  org-flexbasis-100p"
+          >
             <div className="eeelf org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p">
               {sitebodyArrayItem.heading}
               <br />
@@ -331,28 +349,28 @@ class F extends Component {
 
     let sitesocialhtml = [];
     for (let i in sitesociallinks) {
-      if (i == "facebook") {
-        sitesocialhtml.push(<i class="fa fa-facebook-f sp"></i>);
+      if (i === "facebook") {
+        sitesocialhtml.push(<i key={i} className="fa fa-facebook-f sp"></i>);
       }
-      if (i == "twitter") {
-        sitesocialhtml.push(<i class="fa fa-twitter sp"></i>);
+      if (i === "twitter") {
+        sitesocialhtml.push(<i key={i} className="fa fa-twitter sp"></i>);
       }
-      if (i == "whatsapp") {
-        sitesocialhtml.push(<i class="fa fa-whatsapp sp"></i>);
+      if (i === "whatsapp") {
+        sitesocialhtml.push(<i key={i} className="fa fa-whatsapp sp"></i>);
       }
     }
     let sitefooterhtml1 = [];
     let sitefooterhtml2 = [];
 
     for (let i in sitefooterlinks1) {
-      sitefooterhtml1.push(<div>{sitefooterlinks1[i].label}</div>);
+      sitefooterhtml1.push(<div key={i}>{sitefooterlinks1[i].label}</div>);
     }
     for (let i in sitefooterlinks2) {
-      sitefooterhtml2.push(<div>{sitefooterlinks2[i].label}</div>);
+      sitefooterhtml2.push(<div key={i}>{sitefooterlinks2[i].label}</div>);
     }
     let sitefooterhtml = [];
     sitefooterhtml.push(
-      <div className="org-fr  mp">
+      <div key="sitefooterhtml" className="org-fr  mp">
         <div className=" mf org-flexbasis-100p org-mflexbasis-25p org-lflexbasis-25p org-c-div-tac">
           {sitefooterhtml1}
         </div>

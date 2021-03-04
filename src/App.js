@@ -164,12 +164,12 @@ class F extends Component {
 
     return (
       <>
-        {siteprops.sitetemplatename == "templatetwo" ? (
+        {siteprops.sitetemplatename === "templatetwo" ? (
           <Templatetwo siteprops={siteprops} />
         ) : (
           ""
         )}
-        {siteprops.sitetemplatename == "templateone" ? (
+        {siteprops.sitetemplatename === "templateone" ? (
           <Templateone siteprops={siteprops} />
         ) : (
           ""

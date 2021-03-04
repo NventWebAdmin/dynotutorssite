@@ -9,23 +9,31 @@ class F extends Component {
   }
   render() {
     let logoHtml = [];
-    logoHtml.push(<h1 className="sp">Dynotutors</h1>);
+    logoHtml.push(
+      <h1 key="logo" className="sp">
+        Dynotutors
+      </h1>
+    );
+
     let navmenuUtemHtml = [];
     let navmenuHtml = [];
-    navmenuUtemHtml.push(<div>Online Tutoring</div>);
-    navmenuUtemHtml.push(<div>About Us</div>);
-    navmenuUtemHtml.push(<div>Our Difference</div>);
-    navmenuUtemHtml.push(<div>Reviews</div>);
-    navmenuUtemHtml.push(<div>Free Consultation</div>);
+    navmenuUtemHtml.push(<div key="online">Online Tutoring</div>);
+    navmenuUtemHtml.push(<div key="about">About Us</div>);
+    navmenuUtemHtml.push(<div key="ourdiff">Our Difference</div>);
+    navmenuUtemHtml.push(<div key="revi">Reviews</div>);
+    navmenuUtemHtml.push(<div key="free">Free Consultation</div>);
     navmenuHtml.push(
-      <div className="org-fr org-fjc-e org-fai-c org-cdivleft-lp org-cdivv-mp lf">
+      <div
+        key="navmenuitem"
+        className="org-fr org-fjc-e org-fai-c org-cdivleft-lp org-cdivv-mp lf"
+      >
         {navmenuUtemHtml}
       </div>
     );
 
     let siteintroBodyLeftHtml = [];
     siteintroBodyLeftHtml.push(
-      <div style={{ width: "70%" }}>
+      <div key="bodyleft1" style={{ width: "70%" }}>
         <div style={{ fontSize: "3vw" }}>
           Tutoring Services for all All Ages & Levels
         </div>
@@ -56,8 +64,9 @@ class F extends Component {
 
     let siteintroHtml = [];
     siteintroHtml.push(
-      <div style={{ position: "relative", width: "100%" }}>
+      <div key="siteintro1" style={{ position: "relative", width: "100%" }}>
         <img
+          alt="test"
           src={Logo}
           width="100%"
           height="600px"
@@ -71,7 +80,7 @@ class F extends Component {
 
     let sitebodyHtml = [];
     sitebodyHtml.push(
-      <div className="org-fr lm">
+      <div key="sitebody" className="org-fr lm">
         <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p mp">
           <div className="elf">Tutoring Services in Park Cities</div>
           <br />
@@ -89,6 +98,7 @@ class F extends Component {
         </div>
         <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p mp">
           <img
+            alt="test"
             src={Logo}
             width="100%"
             height="300px"
@@ -98,7 +108,7 @@ class F extends Component {
       </div>
     );
     sitebodyHtml.push(
-      <div className="org-fr lm">
+      <div key="body1" className="org-fr lm">
         <div className="org-flexbasis-100p org-mflexbasis-33p org-lflexbasis-33p mp mf">
           <div className="elf">test</div>
           Are you struggling to keep up with your coursework? Do you want to get
@@ -118,9 +128,10 @@ class F extends Component {
     );
 
     sitebodyHtml.push(
-      <div className="org-fr lm">
+      <div key="sitebody3" className="org-fr lm">
         <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p mp">
           <img
+            alt="test"
             src={Logo}
             width="100%"
             height="300px"
@@ -146,7 +157,10 @@ class F extends Component {
     );
 
     sitebodyHtml.push(
-      <div className="org-fr org-fjc-c org-fai-c  org-flexbasis-100p">
+      <div
+        key="sitebody4"
+        className="org-fr org-fjc-c org-fai-c  org-flexbasis-100p"
+      >
         <div className="eeelf org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p">
           Still have questions ? chat us or
           <br />
@@ -168,7 +182,7 @@ class F extends Component {
     );
 
     return (
-      <div style={{ color: "black" }}>
+      <div key="templateone" style={{ color: "black" }}>
         <div className="org-fr org-fai-c hmm ">
           <div className="org-flexbasis-100p org-mflexbasis-20p org-lflexbasis-20p ">
             {logoHtml}
