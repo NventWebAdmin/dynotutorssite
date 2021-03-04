@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Logo from "./images/snowmount.jpg";
-import "./app.css";
+//import "./app.css";
 import Templateone from "./templates/templateone";
 import Templatetwo from "./templates/templatetwo";
 
