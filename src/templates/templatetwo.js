@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Logo from "../images/snowmount.jpg";
-import "../app.css";
+import "../App.css";
 
 class F extends Component {
   constructor(props) {
