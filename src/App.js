@@ -15,19 +15,52 @@ class F extends Component {
     siteprops.sitelogourl = "";
     siteprops.siteheaderorgname = "Dynotutors";
     siteprops.siteheadernavmenuitems = {
-      findtutors: { label: "Find Tutors", name: "findtutors", action: {} },
-      enterprise: { label: "Enterprise", name: "enterprise", action: {} },
+      findtutors: {
+        label: "Find Tutors",
+        name: "findtutors",
+        action: {},
+        dropdownitems: {
+          0: {
+            label: "Subjects",
+            name: "subjects",
+            dropdownitems: {
+              0: { label: "Maths", name: "maths", action: "" },
+              1: { label: "Science", name: "science", action: "" },
+            },
+          },
+        },
+      },
+      enterprise: {
+        label: "Enterprise",
+        name: "enterprise",
+        action: {},
+        dropdownitems: {},
+      },
       becomeatutor: {
         label: "Become a Tutor",
         name: "becomeatutor",
         action: {},
+        dropdownitems: {
+          0: {
+            label: "Subjects",
+            name: "subjects",
+            dropdownitems: {
+              0: { label: "Maths", name: "maths", action: "" },
+              1: { label: "Science", name: "science", action: "" },
+            },
+          },
+        },
       },
       // languagecurrency: {
       //   label: "Language & Curency",
       //   name: "languagecurrency",
       //   action: {},
       // },
-      login: { label: "Login", action: {} },
+      login: {
+        label: "Login",
+        action: {},
+        dropdownitems: {},
+      },
     };
 
     siteprops.siteintroposition = "left";

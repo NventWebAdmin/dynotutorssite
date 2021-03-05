@@ -9,6 +9,7 @@ class F extends Component {
   }
 
   tabClick = (x) => {
+    console.log(x);
     this.setState({ activePageName: x });
   };
 
@@ -40,51 +41,77 @@ class F extends Component {
 
     let logoHtml = [];
     logoHtml.push(
-      <h1 key="logo" className="sp" onClick={() => this.tabClick("home")}>
-        {siteheaderorgname}
-      </h1>
+      <div key="logo" className="elf " onClick={() => this.tabClick("home")}>
+        <b> {siteheaderorgname}</b>
+      </div>
     );
 
     let navmenuItemHtml = [];
     let navmenuHtml = [];
     for (let i in siteheadernavmenuitems) {
-      navmenuItemHtml.push(
-        <div key={i} onClick={() => this.tabClick(i)}>
-          <div className="dropdown">
-            {siteheadernavmenuitems[i].label}{" "}
-            <i className="fa fa-angle-down sp"></i>
-            <div className="dropdown-content">
-              <div className="dropdown2 ">
-                <div className="org-fr org-fai-c org-fjc-sb org-bb">
-                  test <i className="fa fa-angle-right "></i>
-                </div>
-                <div className="dropdown2-contentright ">
-                  <div className="org-bb">test</div>
-                  <div className="org-bb">test</div>
-                  <div className="org-bb">test</div>
-                </div>
-              </div>
+      let dropdownitems = siteheadernavmenuitems[i].dropdownitems;
 
-              <div className="dropdown2 ">
-                <div className="org-fr org-fai-c org-fjc-sb org-bb">
-                  test <i className="fa fa-angle-right "></i>
-                </div>
-                <div className="dropdown2-contentright ">
-                  <div className="org-bb">test</div>
-                  <div className="org-bb">test</div>
-                  <div className="org-bb">test</div>
+      if (Object.keys(dropdownitems).length > 0) {
+        for (let j in dropdownitems) {
+          let dropdownitem = dropdownitems[j];
+          let rightdropdownitems = dropdownitem.dropdownitems;
+          console.log(rightdropdownitems);
+          let rightdropdownitemsHtml = [];
+          for (let k in rightdropdownitems) {
+            rightdropdownitemsHtml.push(
+              <div
+                key={k}
+                className="org-bb"
+                onClick={() => this.tabClick(rightdropdownitems[k].name)}
+              >
+                {rightdropdownitems[k].label}
+              </div>
+            );
+          }
+          navmenuItemHtml.push(
+            <div key={i}>
+              <div className="dropdown">
+                <span
+                  onClick={() => this.tabClick(siteheadernavmenuitems[i].name)}
+                >
+                  {siteheadernavmenuitems[i].label}
+                </span>
+                <i className="fa fa-angle-down sp"></i>
+                <div className="dropdown-content">
+                  <div className="dropdown2 ">
+                    <div className="org-fr org-fai-c org-fjc-sb org-bb">
+                      <span onClick={() => this.tabClick(dropdownitem.name)}>
+                        {dropdownitem.label}
+                      </span>
+                      <i className="fa fa-angle-right "></i>
+                    </div>
+                    <div className="dropdown2-contentright ">
+                      {rightdropdownitemsHtml}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+          );
+        }
+      } else {
+        navmenuItemHtml.push(
+          <div key={i} onClick={() => this.tabClick(i)}>
+            <div
+              className="dropdown"
+              onClick={() => this.tabClick(siteheadernavmenuitems[i].name)}
+            >
+              {siteheadernavmenuitems[i].label}
+            </div>
           </div>
-        </div>
-      );
+        );
+      }
     }
 
     navmenuHtml.push(
       <div
         key="navmenuitem"
-        className="org-fr org-fjc-e org-fai-c org-cdivleft-lp org-cdivv-mp lf"
+        className="org-fr org-fjc-e org-fai-c org-cdivleft-lp mf"
       >
         {navmenuItemHtml}
       </div>
@@ -93,10 +120,10 @@ class F extends Component {
     let navmenuRowHtml = [];
     navmenuRowHtml.push(
       <div key="navmenurow" className="org-fr org-fai-c ">
-        <div className="org-flexbasis-100p org-mflexbasis-20p org-lflexbasis-20p ">
+        <div className="org-flexbasis-100p org-mflexbasis-20p org-lflexbasis-20p sp ">
           {logoHtml}
         </div>
-        <div className="org-flexbasis-100p org-mflexbasis-80p org-lflexbasis-80p ">
+        <div className="org-flexbasis-100p org-mflexbasis-80p org-lflexbasis-80p sp ">
           {navmenuHtml}
         </div>
       </div>
@@ -151,17 +178,19 @@ class F extends Component {
 
     // siteintro start
     let siteintroHtml = [];
+    siteintroHtml.push(<div key="navmenutrow">{navmenuRowHtml}</div>);
 
-    siteintroHtml.push(
-      <div key="siteintro" style={{ position: "relative", width: "100%" }}>
-        <img
-          alt="test"
-          src={Logo}
-          width="100%"
-          height="600px"
-          style={{ objectFit: "cover" }}
-        />
-        <div
+    if (activePageName === "home") {
+      siteintroHtml.push(
+        <div key="siteintro" style={{ position: "relative", width: "100%" }}>
+          <img
+            alt="test"
+            src={Logo}
+            width="100%"
+            height="600px"
+            style={{ objectFit: "cover" }}
+          />
+          {/* <div
           style={{
             position: "absolute",
             left: "0%",
@@ -171,52 +200,52 @@ class F extends Component {
           }}
         >
           {navmenuRowHtml}
+        </div> */}
+          {siteintroposition === "center" ? (
+            <div
+              style={{
+                position: "absolute",
+                left: "50%",
+                top: "30%",
+                transform: "translate(-50%, 0%)",
+              }}
+            >
+              {siteintroBodyLeftHtml}
+            </div>
+          ) : (
+            ""
+          )}
+          {siteintroposition === "left" ? (
+            <div
+              style={{
+                position: "absolute",
+                left: "5%",
+                top: "30%",
+              }}
+            >
+              {siteintroBodyLeftHtml}
+            </div>
+          ) : (
+            ""
+          )}
+          {siteintroposition === "right" ? (
+            <div
+              style={{
+                position: "absolute",
+                right: "5%",
+                top: "30%",
+              }}
+            >
+              {siteintroBodyLeftHtml}
+            </div>
+          ) : (
+            ""
+          )}
         </div>
-        {siteintroposition === "center" ? (
-          <div
-            style={{
-              position: "absolute",
-              left: "50%",
-              top: "30%",
-              transform: "translate(-50%, 0%)",
-            }}
-          >
-            {siteintroBodyLeftHtml}
-          </div>
-        ) : (
-          ""
-        )}
-        {siteintroposition === "left" ? (
-          <div
-            style={{
-              position: "absolute",
-              left: "5%",
-              top: "30%",
-            }}
-          >
-            {siteintroBodyLeftHtml}
-          </div>
-        ) : (
-          ""
-        )}
-        {siteintroposition === "right" ? (
-          <div
-            style={{
-              position: "absolute",
-              right: "5%",
-              top: "30%",
-            }}
-          >
-            {siteintroBodyLeftHtml}
-          </div>
-        ) : (
-          ""
-        )}
-      </div>
-    );
+      );
+    }
 
-    siteintroHtml = [];
-    siteintroHtml.push(<div key="navmenutrow">{navmenuRowHtml}</div>);
+    //   siteintroHtml = [];
 
     // siteintro end
     // sitebody start
@@ -229,13 +258,13 @@ class F extends Component {
       let sitebodyArrayItem = sitebodyarray[activePageName][i];
       if (sitebodyArrayItem.type === "imgright") {
         sitebodyHtml.push(
-          <div key={i} className="org-fr lm">
-            <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p mp">
+          <div key={i} className="org-fr vsm">
+            <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p esp">
               <div className="elf">{sitebodyArrayItem.heading}</div>
               <br />
               <div className="mf">{sitebodyArrayItem.body}</div>
             </div>
-            <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p mp">
+            <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p esp">
               <img
                 alt="test"
                 src={sitebodyArrayItem.imgurl}
@@ -249,8 +278,8 @@ class F extends Component {
       }
       if (sitebodyArrayItem.type === "imgleft") {
         sitebodyHtml.push(
-          <div key={i} className="org-fr lm">
-            <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p mp">
+          <div key={i} className="org-fr vsm">
+            <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p esp">
               <img
                 alt="test"
                 src={sitebodyArrayItem.imgurl}
@@ -259,7 +288,7 @@ class F extends Component {
                 style={{ objectFit: "cover" }}
               />
             </div>
-            <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p mp">
+            <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p esp">
               <div className="elf">{sitebodyArrayItem.heading}</div>
               <br />
               <div className="mf">{sitebodyArrayItem.body}</div>
@@ -269,8 +298,8 @@ class F extends Component {
       }
       if (sitebodyArrayItem.type === "imgcenter") {
         sitebodyHtml.push(
-          <div key={i} className="org-fr lm">
-            <div className="org-flexbasis-100p org-mflexbasis-100p org-lflexbasis-100p mp">
+          <div key={i} className="org-fr vsm ">
+            <div className="org-flexbasis-100p org-mflexbasis-100p org-lflexbasis-100p esp">
               <img
                 alt="test"
                 src={sitebodyArrayItem.imgurl}
@@ -279,7 +308,7 @@ class F extends Component {
                 style={{ objectFit: "cover" }}
               />
             </div>
-            <div className="org-flexbasis-100p org-mflexbasis-100p org-lflexbasis-100p mp">
+            <div className="org-flexbasis-100p org-mflexbasis-100p org-lflexbasis-100p esp">
               <div className="elf">{sitebodyArrayItem.heading}</div>
               <br />
               <div className="mf">{sitebodyArrayItem.body}</div>
@@ -293,7 +322,7 @@ class F extends Component {
           columnhtml.push(
             <div
               key={j}
-              className="org-flexbasis-100p org-mflexbasis-33p org-lflexbasis-33p mp mf"
+              className="org-flexbasis-100p org-mflexbasis-33p org-lflexbasis-33p esp mf"
             >
               <div className="org-flexbasis-100p org-mflexbasis-100p org-lflexbasis-100p ">
                 <img
@@ -311,7 +340,7 @@ class F extends Component {
           );
         }
         sitebodyHtml.push(
-          <div key={i} className="org-fr lm">
+          <div key={i} className="org-fr vsm">
             {columnhtml}
           </div>
         );
@@ -320,7 +349,7 @@ class F extends Component {
         sitebodyHtml.push(
           <div
             key={i}
-            className="org-fr org-fjc-c org-fai-c  org-flexbasis-100p"
+            className="org-fr org-fjc-c org-fai-c  org-flexbasis-100p vsm"
           >
             <div className="eeelf org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p">
               {sitebodyArrayItem.heading}
@@ -370,7 +399,7 @@ class F extends Component {
     }
     let sitefooterhtml = [];
     sitefooterhtml.push(
-      <div key="sitefooterhtml" className="org-fr  mp">
+      <div key="sitefooter" className="org-fr  ">
         <div className=" mf org-flexbasis-100p org-mflexbasis-25p org-lflexbasis-25p org-c-div-tac">
           {sitefooterhtml1}
         </div>
@@ -392,7 +421,7 @@ class F extends Component {
     // sitefooter end
 
     return (
-      <div style={{ color: "black" }}>
+      <div style={{ color: "black" }} className="sp">
         <div>{siteintroHtml}</div>
         <div>{sitebodyHtml}</div>
         <div>{sitefooterhtml}</div>
