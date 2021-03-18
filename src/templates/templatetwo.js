@@ -1,16 +1,26 @@
 import React, { Component } from "react";
-import Logo from "../images/snowmount.jpg";
+import Calender from "../components/calender";
+import Contactus from "../components/contactus";
+import Faqs from "../components/faqs";
 import "../App.css";
 
 class F extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { activePageName: "" };
-  }
-
-  tabClick = (x) => {
-    console.log(x);
-    this.setState({ activePageName: x });
+  tabClick = (props) => {
+    let { maintab, dropdown, rightdropdown } = props;
+    // console.log(x);
+    if (rightdropdown !== "") {
+      window.location.assign(
+        "/" + maintab + "/" + dropdown + "/" + rightdropdown
+      );
+    } else if (dropdown !== "") {
+      window.location.assign("/" + maintab + "/" + dropdown);
+    } else {
+      if (maintab === "") {
+        window.location.assign("/");
+      } else {
+        window.location.assign("/" + maintab);
+      }
+    }
   };
 
   render() {
@@ -20,6 +30,7 @@ class F extends Component {
       siteheaderorgname,
       siteheadernavmenuitems,
       siteintroposition,
+      siteintroimgsrc,
       siteintroheading,
       siteintrosubheading,
       siteintroinputplaceholder,
@@ -27,21 +38,39 @@ class F extends Component {
       sitebodyarray,
       sitefooterlinks1,
       sitefooterlinks2,
-      siteorgaddress,
+      siteorgphone,
+      siteorgemail,
+      //   siteorgaddress,
       sitesociallinks,
     } = siteprops;
-    let { activePageName } = this.state;
-    if (activePageName === "") {
-      activePageName = "home";
-    }
 
-    //let x = "left";
+    let url = new URL(document.location);
+    console.log(url);
+    let pathname = url.pathname;
+    let activemaintab = "";
+    let activedropdown = "";
+    let activerightdropdown = "";
+    let pathnameArray = pathname.split("/");
+    console.log(pathnameArray);
+
+    activemaintab = pathnameArray[1] ? pathnameArray[1] : "";
+    activedropdown = pathnameArray[2] ? pathnameArray[2] : "";
+    activerightdropdown = pathnameArray[3] ? pathnameArray[3] : "";
+    console.log(activemaintab);
+    console.log(activedropdown);
+    console.log(activerightdropdown);
 
     // site header begin
 
     let logoHtml = [];
     logoHtml.push(
-      <div key="logo" className="elf " onClick={() => this.tabClick("home")}>
+      <div
+        key="logo"
+        className="elf "
+        onClick={() =>
+          this.tabClick({ maintab: "", dropdown: "", rightdropdown: "" })
+        }
+      >
         <b> {siteheaderorgname}</b>
       </div>
     );
@@ -49,62 +78,93 @@ class F extends Component {
     let navmenuItemHtml = [];
     let navmenuHtml = [];
     for (let i in siteheadernavmenuitems) {
-      let dropdownitems = siteheadernavmenuitems[i].dropdownitems;
+      if (siteheadernavmenuitems[i].isactive === "true") {
+        let dropdownitems = siteheadernavmenuitems[i].dropdownitems;
 
-      if (Object.keys(dropdownitems).length > 0) {
-        for (let j in dropdownitems) {
-          let dropdownitem = dropdownitems[j];
-          let rightdropdownitems = dropdownitem.dropdownitems;
-          console.log(rightdropdownitems);
-          let rightdropdownitemsHtml = [];
-          for (let k in rightdropdownitems) {
-            rightdropdownitemsHtml.push(
-              <div
-                key={k}
-                className="org-bb"
-                onClick={() => this.tabClick(rightdropdownitems[k].name)}
-              >
-                {rightdropdownitems[k].label}
-              </div>
-            );
+        if (Object.keys(dropdownitems).length > 0) {
+          let dropdownitemshtml = [];
+          for (let j in dropdownitems) {
+            if (dropdownitems[j].isactive === "true") {
+              let rightdropdownitems = dropdownitems[j].dropdownitems;
+              let rightdropdownitemshtml = [];
+              if (Object.keys(rightdropdownitems).length > 0) {
+                for (let k in rightdropdownitems) {
+                  if (rightdropdownitems[k].isactive === "true") {
+                    rightdropdownitemshtml.push(
+                      <div
+                        key={k}
+                        className="org-fr org-fjc-sb org-fai-c sp org-bb"
+                        onClick={() =>
+                          this.tabClick({
+                            maintab: siteheadernavmenuitems[i].name,
+                            dropdown: dropdownitems[j].name,
+                            rightdropdown: rightdropdownitems[k].name,
+                          })
+                        }
+                      >
+                        {rightdropdownitems[k].label}
+                      </div>
+                    );
+                  }
+                }
+                dropdownitemshtml.push(
+                  <div className="dropdown2" key={dropdownitems[j].name}>
+                    <span className="org-fr org-fjc-sb org-fai-c sp org-bb">
+                      {dropdownitems[j].label}{" "}
+                      <i className="fa fa-angle-right esp"></i>
+                    </span>{" "}
+                    <div className="dropdown2-contentright">
+                      {rightdropdownitemshtml}
+                    </div>
+                  </div>
+                );
+              } else {
+                dropdownitemshtml.push(
+                  <div
+                    key={dropdownitems[j].name}
+                    className="dropdown2  org-fr org-fjc-sb org-fai-c esp org-bb"
+                    onClick={() =>
+                      this.tabClick({
+                        maintab: siteheadernavmenuitems[i].name,
+                        dropdown: dropdownitems[j].name,
+                        rightdropdown: "",
+                      })
+                    }
+                  >
+                    {dropdownitems[j].label}
+                  </div>
+                );
+              }
+            }
           }
+
           navmenuItemHtml.push(
             <div key={i}>
               <div className="dropdown">
-                <span
-                  onClick={() => this.tabClick(siteheadernavmenuitems[i].name)}
-                >
-                  {siteheadernavmenuitems[i].label}
-                </span>
-                <i className="fa fa-angle-down sp"></i>
-                <div className="dropdown-content">
-                  <div className="dropdown2 ">
-                    <div className="org-fr org-fai-c org-fjc-sb org-bb">
-                      <span onClick={() => this.tabClick(dropdownitem.name)}>
-                        {dropdownitem.label}
-                      </span>
-                      <i className="fa fa-angle-right "></i>
-                    </div>
-                    <div className="dropdown2-contentright ">
-                      {rightdropdownitemsHtml}
-                    </div>
-                  </div>
-                </div>
+                <span>{siteheadernavmenuitems[i].label}</span>
+                <i className="fa fa-angle-down esp"></i>
+                <div className="dropdown-content">{dropdownitemshtml}</div>
+              </div>
+            </div>
+          );
+        } else {
+          navmenuItemHtml.push(
+            <div key={i}>
+              <div
+                className="dropdown"
+                onClick={() =>
+                  this.tabClick({
+                    maintab: siteheadernavmenuitems[i].name,
+                    dropdown: "",
+                    rightdropdown: "",
+                  })
+                }
+              >
+                {siteheadernavmenuitems[i].label}
               </div>
             </div>
           );
         }
-      } else {
-        navmenuItemHtml.push(
-          <div key={i} onClick={() => this.tabClick(i)}>
-            <div
-              className="dropdown"
-              onClick={() => this.tabClick(siteheadernavmenuitems[i].name)}
-            >
-              {siteheadernavmenuitems[i].label}
-            </div>
-          </div>
-        );
       }
     }
 
@@ -180,15 +240,15 @@ class F extends Component {
     let siteintroHtml = [];
     siteintroHtml.push(<div key="navmenutrow">{navmenuRowHtml}</div>);
 
-    if (activePageName === "home") {
+    if (activemaintab === "") {
       siteintroHtml.push(
         <div key="siteintro" style={{ position: "relative", width: "100%" }}>
           <img
             alt="test"
-            src={Logo}
+            src={siteintroimgsrc}
             width="100%"
             height="600px"
-            style={{ objectFit: "cover" }}
+            style={{ objectFit: "cover", opacity: "0.5" }}
           />
           {/* <div
           style={{
@@ -250,21 +310,33 @@ class F extends Component {
     // siteintro end
     // sitebody start
     let sitebodyHtml = [];
-    console.log(activePageName);
-    console.log(sitebodyarray[activePageName]);
-    for (let i in sitebodyarray[activePageName]) {
-      console.log(sitebodyarray[activePageName][i]);
+    let activesitebodyarray = {};
+    for (let i in sitebodyarray) {
+      if (
+        sitebodyarray[i].maintab === activemaintab &&
+        sitebodyarray[i].dropdown === activedropdown &&
+        sitebodyarray[i].rightdropdown === activerightdropdown
+      ) {
+        activesitebodyarray = sitebodyarray[i].data;
+      }
+    }
 
-      let sitebodyArrayItem = sitebodyarray[activePageName][i];
-      if (sitebodyArrayItem.type === "imgright") {
+    for (let i in activesitebodyarray) {
+      console.log(activesitebodyarray[i].type);
+
+      let sitebodyArrayItem = activesitebodyarray[i];
+      if (
+        sitebodyArrayItem.type === "imgright" &&
+        sitebodyArrayItem.isactive === "true"
+      ) {
         sitebodyHtml.push(
-          <div key={i} className="org-fr vsm">
-            <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p esp">
-              <div className="elf">{sitebodyArrayItem.heading}</div>
+          <div key={i} className="org-fr mm">
+            <div className="org-flexbasis-100p org-mflexbasis-40p org-lflexbasis-40p esp">
+              <div className="elf ">{sitebodyArrayItem.heading}</div>
               <br />
               <div className="mf">{sitebodyArrayItem.body}</div>
             </div>
-            <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p esp">
+            <div className="org-flexbasis-100p org-mflexbasis-60p org-lflexbasis-60p esp">
               <img
                 alt="test"
                 src={sitebodyArrayItem.imgurl}
@@ -276,10 +348,13 @@ class F extends Component {
           </div>
         );
       }
-      if (sitebodyArrayItem.type === "imgleft") {
+      if (
+        sitebodyArrayItem.type === "imgleft" &&
+        sitebodyArrayItem.isactive === "true"
+      ) {
         sitebodyHtml.push(
-          <div key={i} className="org-fr vsm">
-            <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p esp">
+          <div key={i} className="org-fr mm">
+            <div className="org-flexbasis-100p org-mflexbasis-60p org-lflexbasis-60p esp ">
               <img
                 alt="test"
                 src={sitebodyArrayItem.imgurl}
@@ -288,7 +363,7 @@ class F extends Component {
                 style={{ objectFit: "cover" }}
               />
             </div>
-            <div className="org-flexbasis-100p org-mflexbasis-50p org-lflexbasis-50p esp">
+            <div className="org-flexbasis-100p org-mflexbasis-40p org-lflexbasis-40p esp">
               <div className="elf">{sitebodyArrayItem.heading}</div>
               <br />
               <div className="mf">{sitebodyArrayItem.body}</div>
@@ -296,9 +371,12 @@ class F extends Component {
           </div>
         );
       }
-      if (sitebodyArrayItem.type === "imgcenter") {
+      if (
+        sitebodyArrayItem.type === "imgcenter" &&
+        sitebodyArrayItem.isactive === "true"
+      ) {
         sitebodyHtml.push(
-          <div key={i} className="org-fr vsm ">
+          <div key={i} className="org-fr mm ">
             <div className="org-flexbasis-100p org-mflexbasis-100p org-lflexbasis-100p esp">
               <img
                 alt="test"
@@ -316,7 +394,10 @@ class F extends Component {
           </div>
         );
       }
-      if (sitebodyArrayItem.type === "threecolumn") {
+      if (
+        sitebodyArrayItem.type === "threecolumn" &&
+        sitebodyArrayItem.isactive === "true"
+      ) {
         let columnhtml = [];
         for (let j in sitebodyArrayItem.body) {
           columnhtml.push(
@@ -327,7 +408,7 @@ class F extends Component {
               <div className="org-flexbasis-100p org-mflexbasis-100p org-lflexbasis-100p ">
                 <img
                   alt="test"
-                  src={Logo}
+                  src={siteintroimgsrc}
                   width="100%"
                   height="300px"
                   style={{ objectFit: "cover" }}
@@ -345,7 +426,10 @@ class F extends Component {
           </div>
         );
       }
-      if (sitebodyArrayItem.type === "getstartedbuttonpanel") {
+      if (
+        sitebodyArrayItem.type === "getstartedbuttonpanel" &&
+        sitebodyArrayItem.isactive === "true"
+      ) {
         sitebodyHtml.push(
           <div
             key={i}
@@ -371,6 +455,41 @@ class F extends Component {
           </div>
         );
       }
+      if (
+        sitebodyArrayItem.type === "calender" &&
+        sitebodyArrayItem.isactive === "true"
+      ) {
+        sitebodyHtml.push(
+          <div key={i} className="  mm ">
+            <div className="elf ">{sitebodyArrayItem.heading}</div>
+            <Calender compprops={sitebodyArrayItem.compprops} />
+          </div>
+        );
+      }
+
+      if (
+        sitebodyArrayItem.type === "faqs" &&
+        sitebodyArrayItem.isactive === "true"
+      ) {
+        sitebodyHtml.push(
+          <div key={i} className="  mm ">
+            <div className="elf ">{sitebodyArrayItem.heading}</div>
+            <Faqs compprops={sitebodyArrayItem.compprops} />
+          </div>
+        );
+      }
+
+      if (
+        sitebodyArrayItem.type === "contactus" &&
+        sitebodyArrayItem.isactive === "true"
+      ) {
+        sitebodyHtml.push(
+          <div key={i} className=" mm ">
+            <div className="elf ">{sitebodyArrayItem.heading}</div>
+            <Contactus compprops={sitebodyArrayItem.compprops} />
+          </div>
+        );
+      }
     }
 
     // sitebody end
@@ -379,25 +498,71 @@ class F extends Component {
     let sitesocialhtml = [];
     for (let i in sitesociallinks) {
       if (i === "facebook") {
-        sitesocialhtml.push(<i key={i} className="fa fa-facebook-f sp"></i>);
+        sitesocialhtml.push(
+          <span key={i} className="org-cursor">
+            <i className="fa fa-facebook-f sp"></i>
+          </span>
+        );
       }
       if (i === "twitter") {
-        sitesocialhtml.push(<i key={i} className="fa fa-twitter sp"></i>);
+        sitesocialhtml.push(
+          <span key={i} className="org-cursor">
+            <i className="fa fa-twitter sp"></i>
+          </span>
+        );
       }
       if (i === "whatsapp") {
-        sitesocialhtml.push(<i key={i} className="fa fa-whatsapp sp"></i>);
+        let whatsapphref = "https://wa.me/" + siteorgphone;
+        sitesocialhtml.push(
+          <span key={i} className="org-cursor">
+            <i
+              className="fa fa-whatsapp sp"
+              onClick={() => {
+                window.open(whatsapphref);
+              }}
+            ></i>
+          </span>
+        );
       }
     }
     let sitefooterhtml1 = [];
     let sitefooterhtml2 = [];
 
     for (let i in sitefooterlinks1) {
-      sitefooterhtml1.push(<div key={i}>{sitefooterlinks1[i].label}</div>);
+      sitefooterhtml1.push(
+        <div
+          key={i}
+          onClick={() =>
+            this.tabClick({
+              maintab: sitefooterlinks1[i].name,
+              dropdown: "",
+              rightdropdown: "",
+            })
+          }
+        >
+          {sitefooterlinks1[i].label}
+        </div>
+      );
     }
     for (let i in sitefooterlinks2) {
-      sitefooterhtml2.push(<div key={i}>{sitefooterlinks2[i].label}</div>);
+      sitefooterhtml2.push(
+        <div
+          key={i}
+          onClick={() =>
+            this.tabClick({
+              maintab: sitefooterlinks2[i].name,
+              dropdown: "",
+              rightdropdown: "",
+            })
+          }
+        >
+          {sitefooterlinks2[i].label}
+        </div>
+      );
     }
     let sitefooterhtml = [];
+    //  let orgemailhref = "mailto:" + siteorgemail;
+    //   let orgphonehref = "callto:" + siteorgphone;
     sitefooterhtml.push(
       <div key="sitefooter" className="org-fr  ">
         <div className=" mf org-flexbasis-100p org-mflexbasis-25p org-lflexbasis-25p org-c-div-tac">
@@ -409,7 +574,36 @@ class F extends Component {
 
         <div className="mf org-flexbasis-100p org-mflexbasis-25p org-lflexbasis-25p org-c-div-tac">
           <div>Contact Us</div>
-          <div> {siteorgaddress}</div>
+          {/* <div> {siteorgaddress}</div> */}
+          <div
+            //  href="#"
+            className="org-cursor org-anchorcolor"
+            style={{
+              textDecoration: "none",
+            }}
+            onClick={() =>
+              window.open(
+                `https://mail.google.com/mail/u/0/?fs=1&to=${siteorgemail}&tf=cm`
+              )
+            }
+          >
+            {siteorgemail}
+          </div>
+
+          <div
+            className="org-cursor"
+            // href={orgphonehref}
+            style={{ color: "inherit", textDecoration: "none" }}
+            onClick={() =>
+              this.tabClick({
+                maintab: "callback",
+                dropdown: "",
+                rightdropdown: "",
+              })
+            }
+          >
+            {siteorgphone}
+          </div>
         </div>
 
         <div className="mf org-flexbasis-100p org-mflexbasis-25p org-lflexbasis-25p org-c-div-tac">
@@ -423,7 +617,9 @@ class F extends Component {
     return (
       <div style={{ color: "black" }} className="sp">
         <div>{siteintroHtml}</div>
+
         <div>{sitebodyHtml}</div>
+
         <div>{sitefooterhtml}</div>
       </div>
     );

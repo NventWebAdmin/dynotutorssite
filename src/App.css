@@ -873,7 +873,7 @@ th {
   border-bottom: 2px solid white;
 }
 .org-bb {
-  border: 1px solid grey;
+  border: 1px solid rgb(230, 225, 225);
 }
 
 .imgfill {
@@ -971,6 +971,10 @@ th {
 
 .org-cursor {
   cursor: pointer;
+}
+
+.org-anchorcolor{
+  color: mediumblue;
 }
 
 .org-lightgreybg {
