@@ -248,7 +248,7 @@ class F extends Component {
             src={siteintroimgsrc}
             width="100%"
             height="600px"
-            style={{ objectFit: "cover", opacity: "0.5" }}
+            style={{ objectFit: "cover", opacity: "0.7" }}
           />
           {/* <div
           style={{

@@ -375,6 +375,7 @@ class F extends Component {
             Meeting URL
           </span>
           <div
+            className="org-cursor org-anchorcolor mf"
             onClick={() => {
               window.open(meetingURl);
             }}

@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import Logo from "./images/onlinecoursesgreen.jpeg";
-import siteintro from "./images/onlinelearninggreenboard2.jpg";
-import learnmathsone from "./images/learnmaths1.jpeg";
+import siteintro from "./images/onlinelearning4.jpeg";
+import learnmathsone from "./images/onlinelearningmaths2.jpeg";
 import learnhtmlsone from "./images/learnhtml1.jpeg";
 import learnphysicsone from "./images/learnphysics1.jpg";
 import learnchemistryone from "./images/learnchemistry1.jpg";
 import learnenglishone from "./images/learnenglish1.jpg";
 import learnhindione from "./images/learnhindi1.jpg";
 import learnteluguone from "./images/learntelugu1.png";
-import learnsmartone from "./images/learnsmart1.jpeg";
-import learnwhileworkone from "./images/learnwhilework1.jpeg";
-import bestteacherone from "./images/bestteacher1.jpeg";
+import learnsmartone from "./images/onlinelearningsmart1.jpeg";
+import learnwhileworkone from "./images/learnanytime1.jpeg";
+import bestteacherone from "./images/bestteacher2.jpeg";
+import pricingone from "./images/pricing1.jpeg";
 
 //import "./app.css";
 import Templateone from "./templates/templateone";
@@ -1354,7 +1355,7 @@ class F extends Component {
           0: {
             isactive: "true",
             type: "imgright",
-            imgurl: Logo,
+            imgurl: pricingone,
             heading: "One Month Free Trial",
             body:
               "Currently we are providing one month free trail on all the courses. Please have a look at the calender to get more information on the course schedule. Our courses are being provided a affordable prices, please contact us to get more informations by entering details below form",
