@@ -30,6 +30,7 @@ class F extends Component {
     siteprops.sitelogourl = "";
     siteprops.siteheaderorgname = "PostPaidTutors";
     siteprops.siteorgdbname = "postpaidtutors";
+    siteprops.siteportalurl = "https://dynotutorsportal2.web.app/login";
     siteprops.siteheadernavmenuitems = {
       2: {
         label: "Courses",

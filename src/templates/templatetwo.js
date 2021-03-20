@@ -40,10 +40,11 @@ class F extends Component {
       sitefooterlinks2,
       siteorgphone,
       siteorgemail,
+      siteportalurl,
       //   siteorgaddress,
       sitesociallinks,
     } = siteprops;
-
+    console.log(siteprops);
     let url = new URL(document.location);
     console.log(url);
     let pathname = url.pathname;
@@ -176,12 +177,19 @@ class F extends Component {
         {navmenuItemHtml}
       </div>
     );
-
+    alert(siteportalurl);
     let navmenuRowHtml = [];
     navmenuRowHtml.push(
       <div key="navmenuloginrow" className="org-fr org-fai-c  org-fjc-sb ">
         <div></div>
-        <div className="sph">Sign In / Register</div>
+        <div
+          className="sph org-cursor"
+          onClick={() => {
+            window.open(siteportalurl, "_self");
+          }}
+        >
+          Sign In / Register
+        </div>
       </div>
     );
 
