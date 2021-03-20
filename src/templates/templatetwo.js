@@ -177,7 +177,6 @@ class F extends Component {
         {navmenuItemHtml}
       </div>
     );
-    alert(siteportalurl);
     let navmenuRowHtml = [];
     navmenuRowHtml.push(
       <div key="navmenuloginrow" className="org-fr org-fai-c  org-fjc-sb ">
