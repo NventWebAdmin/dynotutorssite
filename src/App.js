@@ -571,8 +571,10 @@ class F extends Component {
       "Are you looking for best Online School tutors";
     siteprops.siteintrosubheading =
       "we will provide best tutoring services at affordable price";
-    siteprops.siteintroinputplaceholder = "What do you want to learn?";
-    siteprops.siteintrobuttonlabel = "Find information";
+    //siteprops.siteintroinputplaceholder = "What do you want to learn?";
+    // siteprops.siteintrobuttonlabel = "Find information";
+    siteprops.siteintroinputplaceholder = "";
+    siteprops.siteintrobuttonlabel = "";
 
     siteprops.sitebodyarray = {
       home: {

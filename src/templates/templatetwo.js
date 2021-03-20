@@ -179,6 +179,13 @@ class F extends Component {
 
     let navmenuRowHtml = [];
     navmenuRowHtml.push(
+      <div key="navmenuloginrow" className="org-fr org-fai-c  org-fjc-sb ">
+        <div></div>
+        <div className="sph">Sign In / Register</div>
+      </div>
+    );
+
+    navmenuRowHtml.push(
       <div key="navmenurow" className="org-fr org-fai-c ">
         <div className="org-flexbasis-100p org-mflexbasis-20p org-lflexbasis-20p sp ">
           {logoHtml}
@@ -193,7 +200,7 @@ class F extends Component {
 
     let siteintroBodyLeftHtml = [];
     siteintroBodyLeftHtml.push(
-      <div key="siteintrobodyleft" style={{ width: "100%" }}>
+      <div key="siteintrobodyleft" style={{ width: "100%", color: "white" }}>
         <div style={{ fontSize: "50px" }}>{siteintroheading}</div>
         <br />
         <br />
@@ -201,43 +208,52 @@ class F extends Component {
         <br />
         <br />
         <div className="org-fr org-fai-c">
-          <div
-            style={{
-              backgroundColor: "white",
-              width: "75%",
-              height: "50px",
-              textAlign: "center",
-              padding: "10px",
-            }}
-          >
-            <input
-              placeholder={siteintroinputplaceholder}
+          {siteintroinputplaceholder !== "" ? (
+            <div
               style={{
-                width: "100%",
-                height: "100%",
-                padding: 0,
-                border: 0,
+                backgroundColor: "white",
+                width: "75%",
+                height: "50px",
+                textAlign: "center",
+                padding: "10px",
               }}
-            />
-          </div>
-          <div
-            style={{
-              backgroundColor: "#3bb3bd",
-              width: "25%",
-              height: "50px",
-              textAlign: "center",
-              padding: "10px",
-            }}
-            className="org-fr org-fjc-c org-fai-c"
-          >
-            {siteintrobuttonlabel}
-          </div>
+            >
+              <input
+                placeholder={siteintroinputplaceholder}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  padding: 0,
+                  border: 0,
+                }}
+              />
+            </div>
+          ) : (
+            ""
+          )}
+          {siteintrobuttonlabel !== "" ? (
+            <div
+              style={{
+                backgroundColor: "#3bb3bd",
+                width: "25%",
+                height: "50px",
+                textAlign: "center",
+                padding: "10px",
+              }}
+              className="org-fr org-fjc-c org-fai-c"
+            >
+              {siteintrobuttonlabel}
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     );
 
     // siteintro start
     let siteintroHtml = [];
+
     siteintroHtml.push(<div key="navmenutrow">{navmenuRowHtml}</div>);
 
     if (activemaintab === "") {
@@ -248,7 +264,7 @@ class F extends Component {
             src={siteintroimgsrc}
             width="100%"
             height="600px"
-            style={{ objectFit: "cover", opacity: "0.7" }}
+            style={{ objectFit: "cover", opacity: "0.8" }}
           />
           {/* <div
           style={{
@@ -330,13 +346,13 @@ class F extends Component {
         sitebodyArrayItem.isactive === "true"
       ) {
         sitebodyHtml.push(
-          <div key={i} className="org-fr mm">
-            <div className="org-flexbasis-100p org-mflexbasis-40p org-lflexbasis-40p esp">
+          <div key={i} className="org-fr  org-greeybg mpv">
+            <div className="org-flexbasis-100p org-mflexbasis-40p org-lflexbasis-40p lp">
               <div className="elf ">{sitebodyArrayItem.heading}</div>
               <br />
               <div className="mf">{sitebodyArrayItem.body}</div>
             </div>
-            <div className="org-flexbasis-100p org-mflexbasis-60p org-lflexbasis-60p esp">
+            <div className="org-flexbasis-100p org-mflexbasis-60p org-lflexbasis-60p lp">
               <img
                 alt="test"
                 src={sitebodyArrayItem.imgurl}
@@ -353,8 +369,8 @@ class F extends Component {
         sitebodyArrayItem.isactive === "true"
       ) {
         sitebodyHtml.push(
-          <div key={i} className="org-fr mm">
-            <div className="org-flexbasis-100p org-mflexbasis-60p org-lflexbasis-60p esp ">
+          <div key={i} className="org-fr  org-greeybg mpv">
+            <div className="org-flexbasis-100p org-mflexbasis-60p org-lflexbasis-60p  lp">
               <img
                 alt="test"
                 src={sitebodyArrayItem.imgurl}
@@ -363,7 +379,7 @@ class F extends Component {
                 style={{ objectFit: "cover" }}
               />
             </div>
-            <div className="org-flexbasis-100p org-mflexbasis-40p org-lflexbasis-40p esp">
+            <div className="org-flexbasis-100p org-mflexbasis-40p org-lflexbasis-40p  lp">
               <div className="elf">{sitebodyArrayItem.heading}</div>
               <br />
               <div className="mf">{sitebodyArrayItem.body}</div>
@@ -376,7 +392,7 @@ class F extends Component {
         sitebodyArrayItem.isactive === "true"
       ) {
         sitebodyHtml.push(
-          <div key={i} className="org-fr mm ">
+          <div key={i} className="org-fr mpv ">
             <div className="org-flexbasis-100p org-mflexbasis-100p org-lflexbasis-100p esp">
               <img
                 alt="test"

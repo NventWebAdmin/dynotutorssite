@@ -96,6 +96,46 @@ th {
   padding: 3vw;
 }
 
+.espv {
+  padding-top: 0.5vw;
+  padding-bottom: 0.5vw;
+}
+
+.spv {
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+}
+
+.mpv {
+  padding-top: 2vw;
+  padding-bottom: 2vw;
+}
+
+.lpv {
+  padding-top: 3vw;
+  padding-bottom: 3vw;
+}
+
+.esph {
+  padding-left: 0.5vw;
+  padding-right: 0.5vw;
+}
+
+.sph {
+  padding-left: 1vw;
+  padding-right: 1vw;
+}
+
+.mph {
+  padding-left: 2vw;
+  padding-right: 2vw;
+}
+
+.lph {
+  padding-left: 3vw;
+  padding-right: 3vw;
+}
+
 .org-c-div-tac > div {
   text-align: center;
 }
@@ -973,7 +1013,7 @@ th {
   cursor: pointer;
 }
 
-.org-anchorcolor{
+.org-anchorcolor {
   color: mediumblue;
 }
 
